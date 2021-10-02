@@ -1,0 +1,31 @@
+﻿@model Byte[]
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Gerando QRCode na ASP.NET Core</title>
+</head>
+<body>
+    <div class="text-center">
+        <div id="titleMain">
+            <h1 class="display-4">Gerador de QRCode</h1>
+        </div>
+        @using (Html.BeginForm(null, null, FormMethod.Post))
+        {
+            <div id="insertContent" class="input-group mb-3">
+                <input type="text" id="inputLink" name="inputLink" runat="server" class="form-control" placeholder="Insira o texto para gerar o QR Code"
+                       aria-label="Insira o texto para gerar o QR Code" aria-describedby="button-addon2" />
+                <button class="btn btn-outline-primary" id="button-addon2">Gerar</button>
+            </div>
+        }
+        <div>
+            @{ if (Model != null)
+                {
+                    <img src="@String.Format("data:image/png;base64,{0}",
+                             Convert.ToBase64String(Model))" width="300px" height="300px" />
+                }
+            }
+        </div>
+    </div>
+</body>
+</html>
