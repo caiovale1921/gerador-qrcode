@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using GeradorQRCode.Models;
+using Microsoft.AspNetCore.Mvc;
 using QRCoder;
 using System;
 using System.Collections.Generic;
@@ -21,22 +22,10 @@ namespace GeradorQRCode.Controllers
         {
             if (inputLink != null && inputLink != "")
             {
-                QRCodeGenerator qrCodeGenerator = new QRCodeGenerator();
-                QRCodeData qrCodeData = qrCodeGenerator.CreateQrCode(inputLink, QRCodeGenerator.ECCLevel.Q);
-                QRCode qRCode = new QRCode(qrCodeData);
-                Bitmap qrCodeBitmap = qRCode.GetGraphic(20);
-                return View(BitmapToBytes(qrCodeBitmap));
+                QrCodeClass qrCodeClass = new QrCodeClass(qrText: inputLink);
+                return View(qrCodeClass);
             }
             return View();
-        }
-
-        private static Byte[] BitmapToBytes(Bitmap img)
-        {
-            using (MemoryStream stream = new MemoryStream())
-            {
-                img.Save(stream, System.Drawing.Imaging.ImageFormat.Png);
-                return stream.ToArray();
-            }
         }
     }
 }
