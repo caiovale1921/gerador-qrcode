@@ -20,7 +20,7 @@ namespace GeradorQRCode.Controllers
         [HttpPost]
         public IActionResult Index(string inputLink)
         {
-            if (inputLink != null && inputLink != "")
+            if (!string.IsNullOrEmpty(inputLink))
             {
                 QrCodeClass qrCodeClass = new QrCodeClass(qrText: inputLink);
                 return View(qrCodeClass);
